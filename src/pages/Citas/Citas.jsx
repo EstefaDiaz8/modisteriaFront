@@ -18,7 +18,7 @@ import chatbot from "/chatbot.jpg";
 import citasImg from "/citas.jfif";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { imageExtensions } from "../../assets/constants.d";
+import { imageExtensions, URL_BACK } from "../../assets/constants.d";
 import useDecodedJwt from "../../hooks/useJwt";
 import useFetch from "../../hooks/useFetch";
 export default function Citas() {
@@ -98,7 +98,7 @@ export default function Citas() {
     formData.append("usuarioId", payload?.id);
     imagen && formData.append("file", imagen);
     const response = await triggerFetch(
-      "https://modisteria-back-production.up.railway.app/api/citas/createCita",
+      `${URL_BACK}/citas/createCita`,
       "POST",
       formData,
       {

@@ -107,7 +107,6 @@ export const postsNoSession = [
   },
 ];
 
-export const urlBase = "https://modisteria-back-production.up.railway.app/api/";
 export const imageExtensions = [
   "jpg",
   "jpeg",

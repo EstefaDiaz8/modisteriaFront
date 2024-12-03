@@ -9,17 +9,19 @@ import Modal from "../modal/Modal";
 import useFetch from "../../hooks/useFetch";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+
 export default function CitaComponente({ value, typeAppointment, token }) {
-  const [showModal2, setShowModal2] = useState(false);
-  const toggleModal2 = () => {
-    setShowModal2(!showModal2);
-  };
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+  const [isConfirmCancelModalOpen, setIsConfirmCancelModalOpen] = useState(false);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+
+  const toggleCancelModal = () => setIsCancelModalOpen(!isCancelModalOpen);
+  const toggleConfirmCancelModal = () =>
+    setIsConfirmCancelModalOpen(!isConfirmCancelModalOpen);
+  const toggleImageModal = () => setIsImageModalOpen(!isImageModalOpen);
+
   const navigate = useNavigate();
   const { triggerFetch: cancelarCita } = useFetch();
-  const [showModal3, setShowModal3] = useState(false);
-  const toggleModal3 = () => {
-    setShowModal3(!showModal3);
-  };
 
   const handleCancelarCita = async () => {
     const response = await cancelarCita(
@@ -37,12 +39,16 @@ export default function CitaComponente({ value, typeAppointment, token }) {
       toast.success(`${response.data.msg} con éxito!`, {
         toastId: "DeleteCita",
         autoClose: 1500,
-        onClose: () => {
-          return navigate("/perfil");
-        },
+        onClose: () => navigate("/perfil"),
       });
     }
   };
+
+  // const handleConfirm = () => {
+  //   if (typeAppointment === "10") {
+  //     toggleImageModal();
+  //   }
+  // };
 
   return (
     <div key={value.id} className="cartasCitas">
@@ -73,13 +79,12 @@ export default function CitaComponente({ value, typeAppointment, token }) {
             <path d="M13.015 17h.005" />
             <path d="M7.01 17h.005" />
             <path d="M10.01 17h.005" />
-          </svg>{" "}
+          </svg>
         </div>
         <div className="carta-desc">
           <div className="carta-header">
             <div className="carta-title">Cita</div>
-            {typeAppointment === "9" || typeAppointment === "10"}
-            <button className="carta-menu" onClick={toggleModal2}>
+            <button className="carta-menu" onClick={toggleCancelModal}>
               <div className="dot"></div>
               <div className="dot"></div>
               <div className="dot"></div>
@@ -93,10 +98,12 @@ export default function CitaComponente({ value, typeAppointment, token }) {
           <p className="recent">{formatDateSpanish(value.fecha)}</p>
         </div>
       </div>
+
+      {/* Modal para cancelar cita */}
       {typeAppointment === "9" && (
-        <Modal show={showModal2} onClose={toggleModal2}>
+        <Modal show={isCancelModalOpen} onClose={toggleCancelModal}>
           <div className="modal-header">
-            <Cancel color={"rgb(187, 25, 25)"} size={"150px"}></Cancel>
+            <Cancel color={"rgb(187, 25, 25)"} size={"150px"} />
             <br />
             <span>
               Deseas cancelar la cita del {formatDateSpanish(value.fecha)}?
@@ -104,56 +111,56 @@ export default function CitaComponente({ value, typeAppointment, token }) {
             <button
               className="btnCancelarCita"
               onClick={() => {
-                toggleModal2();
-                toggleModal3();
+                toggleCancelModal();
+                toggleConfirmCancelModal();
               }}
             >
-              <span>Continuar</span>
+              Continuar
             </button>
           </div>
         </Modal>
       )}
 
-      {/*MODAL DE CONFIRMACIÓN*/}
+      {/* Modal de confirmación */}
       {typeAppointment === "9" && (
-        <Modal show={showModal3} onClose={toggleModal3}>
+        <Modal show={isConfirmCancelModalOpen} onClose={toggleConfirmCancelModal}>
           <div className="modalConfirmar">
-            <Alert size={"150px"} color={"rgb(187, 25, 25)"}></Alert> <br />
-            <span>Estas seguro de cancelar tu cita con la modista?</span>
+            <Alert size={"150px"} color={"rgb(187, 25, 25)"} />
+            <br />
+            <span>¿Estás seguro de cancelar tu cita con la modista?</span>
             <br />
             <span>Aún no se ha realizado la cotización</span>
             <div>
-              <button
-                className="btnCancelarCita"
-                onClick={() => {
-                  toggleModal3();
-                }}
-              >
-                <span>Cancelar</span>
+              <button className="btnCancelarCita" onClick={toggleConfirmCancelModal}>
+                Cancelar
               </button>
               <button onClick={handleCancelarCita} className="btnCancelarCita">
-                <span>Confirmar</span>
+                Confirmar
               </button>
             </div>
           </div>
         </Modal>
       )}
+
+      {/* Modal para pedir imagen
       {typeAppointment === "10" && (
-        <Modal show={showModal2} onClose={toggleModal2}>
+        <Modal show={isImageModalOpen} onClose={toggleImageModal}>
           <div className="modalConfirmar">
-            <Alert size={"150px"} color={"rgb(187, 25, 25)"}></Alert> <br />
-            <span>Información sobre cita</span><br />
-            <span>Tiempo estimado: 4 horas</span><br />
-            <span>Precio cita: $40000</span><br />
-            <button className="btnCancelarCita">
-              <span>Confirmar</span>
-            </button>
-            <button className="btnCancelarCita" onClick={handleCancelarCita}>
-              <span>Cancelar</span>
-            </button>
+            <Alert size={"150px"} color={"rgb(187, 25, 25)"} />
+            <br />
+            <span>Por favor sube una imagen para confirmar tu cita.</span>
+            <input type="file" accept="image/*" />
+            <div>
+              <button className="btnCancelarCita" onClick={toggleImageModal}>
+                Cancelar
+              </button>
+              <button className="btnCancelarCita">
+                Enviar imagen
+              </button>
+            </div>
           </div>
         </Modal>
-      )}
+      )} */}
     </div>
   );
 }

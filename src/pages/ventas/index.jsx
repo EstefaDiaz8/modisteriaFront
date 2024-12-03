@@ -12,6 +12,7 @@ import useVentasData from "../../hooks/useVentasData";
 import LoadingTableData from "../../components/loadingTableData/LoadingTableData";
 import { toggleState } from "../../assets/constants.d";
 import DialogActions from '@mui/material/DialogActions';
+import { HelpOutlineOutlined } from "@mui/icons-material";
 
 
 export default function Ventas() {
@@ -107,7 +108,9 @@ export default function Ventas() {
 
   return (
     <>
-      <Header title="Ventas" />
+      <Header 
+        title="Ventas"
+      />
       <ContainerDataGrid>
         {loading ? (
           <LoadingTableData />
