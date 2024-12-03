@@ -39,21 +39,47 @@ export default function useCitasData() {
     );
     return respuesta;
   };
+  const createVenta = async (citaId) => {
+    const respuesta = await updateFetch(
+      `${URL_BACK}/citainsumos/endCitaCreateVenta`,
+      "PUT",
+      citaId,
+      { "x-token": token }
+    );
+    return respuesta;
+  };
 
   const createCita = async (infoUpdate) => {
     const respuesta = await createFetch(
-      `${URL_BACK}/citas/createCita`,
+      `${URL_BACK}/citas/crearCita`,
       "POST",
       infoUpdate,
       { "x-token": token }
     );
     return respuesta;
   };
-
+  const createEstimation = async (infoUpdate) => {
+    const respuesta = await createFetch(
+      `${URL_BACK}/citainsumos/createAndDiscount`,
+      "POST",
+      infoUpdate,
+      { "x-token": token }
+    );
+    return respuesta;
+  };
+  const updateSTP = async (citaId, infoUpdate) => {
+    const respuesta = await updateFetch(
+      `${URL_BACK}/citas/updateSPT/${citaId}`,
+      "PUT",
+      infoUpdate,
+      { "x-token": token }
+    );
+    return respuesta;
+  };
   const deleteCita = async (id) => {
     const respuesta = await deleteFetch(
-      `${URL_BACK}/citas/deleteCita/${id}`,
-      "DELETE",
+      `${URL_BACK}/citas/cancelCita/${id}`,
+      "PUT",
       null,
       { "x-token": token }
     );
@@ -87,6 +113,9 @@ export default function useCitasData() {
     updateCita,
     fetchAllUsuarios,
     initialFetchAllUsuarios,
+    createVenta,
     loading,
+    createEstimation,
+    updateSTP,
   };
 }

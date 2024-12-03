@@ -47,9 +47,7 @@ import CustomDialogActions from "../../components/customDialogActions/CustomDial
 import { toggleState } from "../../assets/constants.d";
 import CheckboxCustom from "../../components/checkbox/CheckBoxCustom";
 import { TrashColor } from "../../components/svg/Svg";
-import {
-  ViewListOutlined,
-} from "@mui/icons-material";
+import { ViewListOutlined } from "@mui/icons-material";
 const CatalogoDashboard = () => {
   const sliderSettings = {
     infinite: true,
@@ -376,50 +374,41 @@ const CatalogoDashboard = () => {
             {dialogProps.action === "delete" ? (
               <DialogContentText>{`¿Estás seguro de que deseas eliminar el profucto del catálogo con nombre "${dialogProps.row.producto}" ?`}</DialogContentText>
             ) : dialogProps.action === "preview" ? (
-
               <div className="catalagoCard">
                 <div class="catalogo-imagen">
                   <img
-                    src='https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/132811350_01/w=800,h=800,fit=pad'
+                    src="https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/132811350_01/w=800,h=800,fit=pad"
                     alt="Imagen del producto"
                   />
 
                   <div className="insumosCatalogo">
-
                     <div className="campoInsumo">
                       <label>Tela Roja:</label>
-                      <span>
-                        23 Metros
-                      </span>
+                      <span>23 Metros</span>
                     </div>
 
                     <div className="campoInsumo">
                       <label>Tela Blanca:</label>
-                      <span>
-                        23 Metros
-                      </span>
+                      <span>23 Metros</span>
                     </div>
 
                     <div className="campoInsumo">
                       <label>Tela Gris:</label>
-                      <span>
-                        23 Metros
-                      </span>
+                      <span>23 Metros</span>
                     </div>
-                </div>
-
+                  </div>
                 </div>
 
                 <div class="catalogo-info">
                   <div class="campo">
                     <label>Nombre:</label>
-                    <span>
-                      Vestido Negro
-                    </span>
+                    <span>Vestido Negro</span>
                   </div>
 
                   <div class="campoObjetivo">
-                    <label>Descripcion:</label><br /><br />
+                    <label>Descripcion:</label>
+                    <br />
+                    <br />
                     <span className="objetivo-text">
                       El vestido que es mas negro que el propio deymar
                     </span>
@@ -438,7 +427,6 @@ const CatalogoDashboard = () => {
                   </div>
                 </div>
               </div>
-
             ) : (
               <div>
                 <InputDash
@@ -768,197 +756,22 @@ const CatalogoDashboard = () => {
             )}
           </DialogContent>
 
-
           {dialogProps.action === "preview" ? (
             <CustomDialogActions
-            cancelButton
-            handleClose={() => toggleState(setOpenModal)}
+              cancelButton
+              handleClose={() => toggleState(setOpenModal)}
             />
-          ):(
+          ) : (
             <CustomDialogActions
-            cancelButton
-            customCancelColor={dialogProps.action === "delete" && "inherit"}
-            saveButton={dialogProps.action !== "delete"}
-            deleteButton={dialogProps.action === "delete"}
-            handleClose={() => toggleState(setOpenModal)}
-          />
+              cancelButton
+              customCancelColor={dialogProps.action === "delete" && "inherit"}
+              saveButton={dialogProps.action !== "delete"}
+              deleteButton={dialogProps.action === "delete"}
+              handleClose={() => toggleState(setOpenModal)}
+            />
           )}
         </form>
       </Dialog>
-      {/* 
-      <Dialog
-        keepMounted
-        TransitionComponent={Transition}
-        open={openPreview}
-        onClose={() => setOpenPreview(false)}
-        maxWidth="md"
-        PaperProps={{
-          style: {
-            borderRadius: 16,
-            padding: 16,
-            backgroundColor: colors.grey[900],
-          },
-        }}
-      >
-        <DialogTitle sx={{ color: colors.grey[100], paddingBottom: 0 }}>
-          Visualización previa
-        </DialogTitle>
-        <DialogContent
-          sx={{
-            paddingTop: 2,
-            mt: "20px",
-            height: "62vh",
-            minWidth: "60vw",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Grid container spacing={1} alignItems="center">
-            {/* Imagen del producto */}
-      {/* <Grid item xs={12} sm={6}>
-              <Box
-                sx={{
-                  position: "relative",
-                  width: "80%",
-                  borderRadius: "2rem",
-                  overflow: "hidden",
-                  boxShadow: 3,
-                  width: "350px",
-                  height: "350px",
-                  transition: "transform 0.3s",
-                  cursor: "pointer",
-                }}
-              >
-                {selectedCatalogo?.Imagens?.length > 1 ? (
-                  <Slider {...sliderSettings}>
-                    {selectedCatalogo?.Imagens?.map((imagenPreview) => (
-                      <img
-                        key={imagenPreview.id}
-                        src={imagenPreview.url}
-                        onMouseEnter={() => log(imagenPreview)}
-                        alt={selectedCatalogo?.producto}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          display: "block",
-                        }}
-                      ></img>
-                    ))}
-                  </Slider>
-                ) : (
-                  <img
-                    src={selectedCatalogo?.Imagens?.[0]?.url}
-                    alt={selectedCatalogo?.producto}
-                    style={{ width: "100%", display: "block" }}
-                  ></img>
-                )}
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "rgba(0, 0, 0, 0.6)",
-                    color: "white",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    opacity: 0,
-                    transition: "opacity 0.3s",
-                    "&:hover": {
-                      opacity: 1,
-                    },
-                  }}
-                >
-                  {selectedCatalogo?.insumos?.length >= 1 ? (
-                    <div>
-                      {selectedCatalogo?.insumos?.map((insumo) => (
-                        <Typography
-                          key={insumo.id}
-                          variant="h6"
-                          sx={{
-                            textAlign: "center",
-                            padding: "16px",
-                          }}
-                        >
-                          {`${insumo.nombre}: ${insumo.cantidad}`}
-                        </Typography>
-                      ))}
-                    </div>
-                  ) : (
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        textAlign: "center",
-                        padding: "16px",
-                      }}
-                    >
-                      ¡Sin insumos asociados!
-                    </Typography>
-                  )}
-                </Box>
-              </Box>
-            </Grid>
-
-            {/* Detalles del producto */}
-      {/* <Grid item xs={12} sm={6}>
-              <Box
-                display={"flex"}
-                justifyContent={"space-between"}
-                alignItems={"baseline"}
-              >
-                <Typography variant="h4" fontWeight="bold" gutterBottom>
-                  {selectedCatalogo?.producto}
-                </Typography>
-                <Typography variant="h5" fontWeight="bold">
-                  {formToCop(selectedCatalogo?.precio)} COP
-                </Typography>
-              </Box>
-              <Typography
-                variant="subtitle1"
-                color="textSecondary"
-                gutterBottom
-                sx={{ display: "flex", alignItems: "center", gap: 1 }}
-              >
-                {getCategoriaNombre(selectedCatalogo?.categoriaId)}
-              </Typography>
-
-              <Typography variant="body1" color="grey.300" marginTop={2}>
-                {selectedCatalogo?.descripcion}
-              </Typography>
-
-              {/* Tallas y precio */}
-      {/* <Grid container spacing={1} marginTop={3}>
-        {selectedCatalogo?.Tallas?.map((talla) => (
-          <Grid item key={talla.id} xs={4}>
-            <Chip
-              label={talla.nombre}
-              sx={{
-                fontWeight: "bold",
-                fontSize: "0.85rem",
-                backgroundColor: colors.purple[300],
-                color: "white",
-              }}
-            />
-          </Grid>
-        ))}
-      </Grid> */}
-      {/* </Grid>
-          </Grid>
-        </DialogContent>
-        <DialogActions sx={{ paddingRight: 3 }}>
-          <Button
-            sx={{ textTransform: "capitalize" }}
-            onClick={() => setOpenPreview(false)}
-            color="error"
-            variant="contained"
-          >
-            Cerrar
-          </Button>
-        </DialogActions> */}
-      {/* </Dialog>  */}
       <ToastContainer></ToastContainer>
     </>
   );

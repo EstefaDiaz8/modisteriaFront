@@ -1,7 +1,8 @@
 .parent-calendar {
   width: 90%;
-  height: 79vh;
+  height: 80vh;
   margin: 0 auto;
+  margin-bottom: 3rem;
 }
 .rbc-day-bg + .rbc-day-bg {
   border-left: none;
@@ -120,6 +121,21 @@ div.rbc-time-slot {
   display: flex;
   flex-direction: column;
 }
+
+.inputs-container {
+  display: flex;
+  gap: 20px;
+}
+
+.inputs-container input {
+  accent-color: #9b59b6;
+}
+.select-imagenes {
+  display: flex;
+  margin-top: 25px;
+  justify-content: space-between;
+  align-items: center;
+}
 .event-options div {
   display: flex;
   font-size: 0.9rem;
@@ -228,4 +244,81 @@ div.rbc-time-slot {
   overflow-wrap: break-word;
   text-align: justify;
   line-height: 1.6;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 15rem;
+  height: 15rem;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 0 auto;
+  border-radius: 0.3rem;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.overlay-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.image-container:hover .overlay {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.insumo-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.insumo-nombre,
+.insumo-cantidad {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: radial-gradient(circle at center, #222222, #1a1a1a, #111111);
+  padding: 1.5rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  color: #fff;
+}
+
+.insumo-nombre label,
+.insumo-cantidad label {
+  font-size: 0.9rem;
+  color: #bb0eca; /* Color del texto decorativo */
+}
+
+.insumo-nombre span,
+.insumo-cantidad span {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  margin-top: 0.5rem;
 }

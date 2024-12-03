@@ -81,7 +81,12 @@ const Compras = () => {
     return insumo && insumo.unidades_de_medida.nombre.toLowerCase();
   };
   const handleSave = async (data) => {
-    const response = await createCompra(data);
+    const { cantidad, ...restOfData } = data;
+    const response = await createCompra({
+      ...restOfData,
+      cantidad: parseInt(cantidad),
+    });
+
     if (response.status !== 201 && response.status !== 200)
       return toast.error(response.data.message, {
         autoClose: 2000,
@@ -141,7 +146,7 @@ const Compras = () => {
             {lastModifications ? "Recientes" : "Viejas"}
           </Button>
         </div>
-        
+
         <div className="textInputWrapper">
           <input
             value={inputDateFilter}

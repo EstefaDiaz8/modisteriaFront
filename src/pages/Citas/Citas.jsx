@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { imageExtensions, URL_BACK } from "../../assets/constants.d";
 import useDecodedJwt from "../../hooks/useJwt";
 import useFetch from "../../hooks/useFetch";
+import dayjs from "dayjs";
 export default function Citas() {
   const { token } = useJwt();
   const payload = useDecodedJwt(token);
@@ -91,7 +92,9 @@ export default function Citas() {
       return;
     }
     const [day, month, year, time] = fechaCita.split(/[-:]/);
-    const dateObject = `${year}-${month}-${day} ${time}:00`;
+
+    const dateObject = `${year}-${month}-${day}T${time}:00:00`;
+    console.log(dateObject);
     const formData = new FormData();
     formData.append("fecha", dateObject);
     formData.append("objetivo", objetivo);
@@ -142,7 +145,8 @@ export default function Citas() {
   const generateReport = async () => {
     toggleAddCita();
     const response = await generarReporte();
-    const dataCita = JSON.parse(response.trim());
+    const responseParsed = response.replace(/```json|```/g, "").trim();
+    const dataCita = JSON.parse(responseParsed);
     setObjetivo(dataCita.objetivo);
     setFechaCita(dataCita.fecha);
   };
@@ -152,10 +156,6 @@ export default function Citas() {
   }, [historial]);
 
   const asesorDiv = useRef(null);
-
-  const scrollToDiv = () => {
-    asesorDiv.current.scrollIntoView({ behavior: "smooth" });
-  };
 
   //Modal
   const [showModal, setShowModal] = useState(false);
